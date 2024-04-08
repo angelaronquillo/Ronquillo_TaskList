@@ -85,7 +85,7 @@ const TaskList = () => {
       sortedTasks = sortedTasks.sort((a, b) => a.quantity - b.quantity);
     } else if (sortType === "name") {
       sortedTasks = sortedTasks.sort((a, b) =>
-        a.text.toLowerCase().localeCompare(b.text.toLowerCase())
+        a.text.toLowerCase().localeCompare(b.text.toLowerCase()),
       );
     }
     setTasks(sortedTasks);
@@ -99,14 +99,14 @@ const TaskList = () => {
     (task, index) =>
       !task.completed &&
       task.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      !markedForDeletion.includes(index)
+      !markedForDeletion.includes(index),
   );
 
   const completedTasks = tasks.filter(
     (task, index) =>
       task.completed &&
       task.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      !markedForDeletion.includes(index)
+      !markedForDeletion.includes(index),
   );
 
   const allTasks = [...incompleteTasks, ...completedTasks];
@@ -115,12 +115,12 @@ const TaskList = () => {
     filterType === "completed"
       ? completedTasks
       : filterType === "incomplete"
-      ? incompleteTasks
-      : allTasks;
+        ? incompleteTasks
+        : allTasks;
 
   return (
     <div className="app">
-      <h1>Grocery List</h1>
+      <h1 className="title">Grocery List</h1>
       <div className="task-input">
         <input
           type="text"
@@ -148,10 +148,13 @@ const TaskList = () => {
             ))}
           </select>
         </div>
-        <button onClick={addTask}>{editIndex !== null ? "Edit" : "Add"}</button>
+        <button style={{ marginRight: "10px" }} onClick={addTask}>
+          {editIndex !== null ? "Edit" : "Add"}
+        </button>
         <label>
-          Sort By:
+          <strong>Sort By:</strong>
           <select
+            style={{ marginRight: "10px" }}
             value={sortType}
             onChange={(e) => setSortType(e.target.value)}
           >
@@ -160,7 +163,7 @@ const TaskList = () => {
           </select>
         </label>
         <label>
-          Filter By:
+          <strong>Filter By:</strong>
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
